@@ -1,0 +1,1 @@
+AI Finder Hub is a website that helps people discover and understand different AI tools in one place. It provides simple explanations, reviews, and guides so users can choose the right tools for their needs. This platform is useful for students, professionals, and creators who want to save time and work smarter using AI.
