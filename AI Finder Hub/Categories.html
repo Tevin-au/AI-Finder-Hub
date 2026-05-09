@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - AI Finder Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tiempos+Headline:wght@400&family=Geist:wght@400;500&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --canvas: #000000;
+            --ink: #fcfdff;
+            --body: rgba(252, 253, 255, 0.86);
+            --surface-card: #0a0a0c;
+            --surface-elevated: #101012;
+            --surface-deep: #06060a;
+            --hairline: rgba(255, 255, 255, 0.06);
+            --hairline-strong: rgba(255, 255, 255, 0.14);
+            --primary: #fcfdff;
+            --primary-on: #000000;
+            --accent-blue: #3b9eff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Geist', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--canvas);
+            color: var(--ink);
+        }
+
+        .nav-bar {
+            background-color: var(--canvas);
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--hairline);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--body);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            padding: 0;
+        }
+
+        .back-btn:hover {
+            color: var(--ink);
+        }
+
+        .nav-bar .logo {
+            font-family: 'Tiempos Headline', serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--body);
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--body);
+        }
+
+        .logout-btn {
+            background-color: var(--surface-elevated);
+            color: var(--ink);
+            border: 1px solid var(--hairline-strong);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--surface-card);
+        }
+
+        .content {
+            padding: 96px 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Tiempos Headline', serif;
+            font-size: 76.8px;
+            font-weight: 400;
+            margin: 0 0 48px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background-color: var(--surface-card);
+            border: 1px solid var(--hairline-strong);
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--ink);
+        }
+
+        .card h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            margin: 0 0 8px 0;
+        }
+
+        .card p {
+            font-family: 'Geist', sans-serif;
+            font-size: 14px;
+            color: var(--body);
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <button class="back-btn" onclick="history.back()">← Back</button>
+            <a href="AI Finder Hub.html" class="logo">AI Finder Hub</a>
+        </div>
+        <nav class="nav-links">
+            <a href="categories.html">Categories</a>
+            <a href="tools.html">Tools</a>
+            <a href="favorites.html">Favorites</a>
+        </nav>
+        <div class="user-info">
+            <span class="user-name" id="user-name"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Categories</h1>
+        <div class="grid" id="categories-grid"></div>
+    </div>
+
+    <script>
+        const categories = [
+            { name: 'Image Generation', description: 'Tools for creating images with AI' },
+            { name: 'Text Processing', description: 'AI for writing, editing, and analyzing text' },
+            { name: 'Code Assistants', description: 'Help with programming and development' },
+            { name: 'Data Analysis', description: 'AI tools for data insights' }
+        ];
+
+        let currentUser = JSON.parse(localStorage.getItem('user')) || null;
+
+        window.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            updateUserInfo();
+            renderCategories();
+        });
+
+        function checkAuth() {
+            if (!currentUser) {
+                alert('Please log in first to access this page.');
+                window.location.href = 'AI Finder Hub.html';
+            }
+        }
+
+        function updateUserInfo() {
+            document.getElementById('user-name').textContent = currentUser ? currentUser.name : '';
+        }
+
+        function renderCategories() {
+            const grid = document.getElementById('categories-grid');
+            grid.innerHTML = categories.map(cat => `
+                <div class="card" onclick="selectCategory('${cat.name}')">
+                    <h3>${cat.name}</h3>
+                    <p>${cat.description}</p>
+                </div>
+            `).join('');
+        }
+
+        function selectCategory(categoryName) {
+            window.location.href = 'tools.html?category=' + encodeURIComponent(categoryName);
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('user');
+            window.location.href = 'AI Finder Hub.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools - AI Finder Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tiempos+Headline:wght@400&family=Geist:wght@400;500&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --canvas: #000000;
+            --ink: #fcfdff;
+            --body: rgba(252, 253, 255, 0.86);
+            --surface-card: #0a0a0c;
+            --surface-elevated: #101012;
+            --surface-deep: #06060a;
+            --hairline: rgba(255, 255, 255, 0.06);
+            --hairline-strong: rgba(255, 255, 255, 0.14);
+            --primary: #fcfdff;
+            --primary-on: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Geist', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--canvas);
+            color: var(--ink);
+        }
+
+        .nav-bar {
+            background-color: var(--canvas);
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--hairline);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--body);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            padding: 0;
+        }
+
+        .back-btn:hover {
+            color: var(--ink);
+        }
+
+        .nav-bar .logo {
+            font-family: 'Tiempos Headline', serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--body);
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--body);
+        }
+
+        .logout-btn {
+            background-color: var(--surface-elevated);
+            color: var(--ink);
+            border: 1px solid var(--hairline-strong);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--surface-card);
+        }
+
+        .content {
+            padding: 96px 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Tiempos Headline', serif;
+            font-size: 76.8px;
+            font-weight: 400;
+            margin: 0 0 48px 0;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 14px;
+            border: 1px solid var(--hairline-strong);
+            border-radius: 8px;
+            background-color: var(--surface-card);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background-color: var(--surface-card);
+            border: 1px solid var(--hairline-strong);
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--ink);
+        }
+
+        .card h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            margin: 0 0 8px 0;
+        }
+
+        .card p {
+            font-family: 'Geist', sans-serif;
+            font-size: 14px;
+            color: var(--body);
+            margin: 0 0 8px 0;
+        }
+
+        .card span {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: rgba(252, 253, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <button class="back-btn" onclick="history.back()">← Back</button>
+            <a href="AI Finder Hub.html" class="logo">AI Finder Hub</a>
+        </div>
+        <nav class="nav-links">
+            <a href="categories.html">Categories</a>
+            <a href="tools.html">Tools</a>
+            <a href="favorites.html">Favorites</a>
+        </nav>
+        <div class="user-info">
+            <span class="user-name" id="user-name"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Tools</h1>
+        <input type="text" id="search-input" class="search-input" placeholder="Search tools..." onkeyup="handleSearch()">
+        <div class="grid" id="tools-grid"></div>
+    </div>
+
+    <script>
+        const tools = [
+            { 
+                name: 'DALL-E', 
+                category: 'Image Generation', 
+                description: 'Create images from text descriptions', 
+                articles: ['How to use DALL-E effectively', 'Advanced prompts guide'], 
+                reviews: [{ rating: 5, comment: 'Amazing quality!' }] 
+            },
+            { 
+                name: 'Midjourney', 
+                category: 'Image Generation', 
+                description: 'AI-powered image generation on Discord', 
+                articles: ['Getting started with Midjourney'], 
+                reviews: [{ rating: 4, comment: 'Great for artists' }] 
+            },
+            { 
+                name: 'TensorFlow', 
+                category: 'Data Analysis', 
+                description: 'Open-source platform for machine learning', 
+                articles: ['Getting started with TensorFlow'], 
+                reviews: [{ rating: 5, comment: 'Powerful and flexible' }] 
+            },
+            {
+                name: 'Gemini Enterprise Agent Platform',
+                category: 'Data Analysis',
+                description: 'Google Cloud AI platform that helps businesses create AI agents for data analysis, automation, and enterprise productivity',
+                articles: ['Google Cloud AI agent platform guide'],
+                reviews: [{ rating: 5, comment: 'Powerful AI platform for enterprise-level automation and analytics' }]
+            },
+            {
+                name: 'Microsoft Power BI',
+                category: 'Data Analysis',
+                description: 'Business intelligence and analytics platform that transforms raw data into interactive dashboards and reports',
+                articles: ['Microsoft Power BI overview', 'Building dashboards with Power BI'],
+                reviews: [{ rating: 5, comment: 'Excellent tool for data visualization and business reporting' }]
+            },
+            {
+                name: 'Power BI Service',
+                category: 'Data Analysis',
+                description: 'Cloud-based analytics service that allows teams to collaborate and share business reports online',
+                articles: ['Power BI Service collaboration guide', 'Sharing reports with Power BI Service'],
+                reviews: [{ rating: 4, comment: 'Very useful for collaborative business analytics and reporting' }]
+            },
+            {
+                name: 'DataRobot',
+                category: 'Data Analysis',
+                description: 'AI and machine learning platform designed to automate predictive analytics and simplify model development',
+                articles: ['Getting started with DataRobot', 'Automated machine learning best practices'],
+                reviews: [{ rating: 5, comment: 'Great platform for automated machine learning and predictive analytics' }]
+            },
+            {
+                name: 'Canva AI',
+                category: 'Image Generation',
+                description: 'AI-powered tool for creating digital art, posters, and graphic designs easily',
+                articles: ['How to use Canva AI effectively', 'Advanced prompts guide'],
+                reviews: [{ rating: 5, comment: 'Easy to use and great for beginners' }]
+            },
+            {
+                name: 'DeepAI',
+                category: 'Image Generation',
+                description: 'Online AI platform that generates unique images from text prompts',
+                articles: ['Getting started with DeepAI', 'Advanced image generation tips'],
+                reviews: [{ rating: 4, comment: 'Produces creative and detailed images' }]
+            },
+            {
+                name: 'Google Gemini',
+                category: 'Image Generation',
+                description: 'Google AI assistant capable of generating and enhancing visual content',
+                articles: ['Using Google Gemini for image creation', 'Best practices guide'],
+                reviews: [{ rating: 5, comment: 'Smart and versatile AI tool' }]
+            },
+            {
+                name: 'Leonardo AI',
+                category: 'Image Generation',
+                description: 'Advanced AI image generator focused on high-quality digital artwork and concepts',
+                articles: ['Leonardo AI tutorial', 'Creating professional artwork'],
+                reviews: [{ rating: 5, comment: 'Excellent for detailed and professional-looking art' }]
+            },
+            {
+                name: 'Imagine Art',
+                category: 'Image Generation',
+                description: 'AI art generator that transforms text prompts into creative digital images',
+                articles: ['Getting started with Imagine Art', 'Creative prompt techniques'],
+                reviews: [{ rating: 4, comment: 'Fun and fast image generation experience' }]
+            },
+            { 
+                name: 'ChatGPT', 
+                category: 'Text Processing', 
+                description: 'Conversational AI for various tasks', 
+                articles: ['Writing prompts', 'Code generation tips'], 
+                reviews: [{ rating: 5, comment: 'Versatile tool' }] 
+            },
+            {
+                name: 'AbiWord',
+                category: 'Text Processing',
+                description: 'Lightweight word processor suitable for creating and editing documents with basic formatting features',
+                articles: ['Getting started with AbiWord', 'Basic document editing guide'],
+                reviews: [{ rating: 4, comment: 'Simple, fast, and good for basic document work' }]
+            },
+            {
+                name: 'Collabora Online (ownCloud)',
+                category: 'Text Processing',
+                description: 'Online office suite integrated with ownCloud for collaborative document editing and processing',
+                articles: ['Getting started with Collabora Online', 'Collaborative document editing tips'],
+                reviews: [{ rating: 5, comment: 'Great for teamwork and real-time document collaboration' }]
+            },
+            {
+                name: 'WordGrinder',
+                category: 'Text Processing',
+                description: 'Minimalist text editor designed for distraction-free writing in a terminal environment',
+                articles: ['Using WordGrinder for focused writing', 'WordGrinder tips and tricks'],
+                reviews: [{ rating: 4, comment: 'Perfect for focused writing without distractions' }]
+            },
+            {
+                name: 'LibreOffice Writer',
+                category: 'Text Processing',
+                description: 'Full-featured open-source word processor for creating professional documents with advanced tools',
+                articles: ['Getting started with LibreOffice Writer', 'Advanced formatting techniques'],
+                reviews: [{ rating: 5, comment: 'Powerful and free alternative to Microsoft Word' }]
+            },
+            {
+                name: 'Notepad++',
+                category: 'Text Processing',
+                description: 'Free text and code editor with syntax highlighting and advanced editing features',
+                articles: [],
+                reviews: [{ rating: 5, comment: 'Highly efficient for both text editing and coding' }]
+            },
+            { 
+                name: 'GitHub Copilot', 
+                category: 'Code Assistants', 
+                description: 'AI code completion and suggestions', 
+                articles: ['Setup guide', 'Best practices'], 
+                reviews: [{ rating: 4, comment: 'Speeds up coding' }] 
+            }
+        ];
+
+        let currentUser = JSON.parse(localStorage.getItem('user')) || null;
+
+        window.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            updateUserInfo();
+            renderTools();
+        });
+
+        function checkAuth() {
+            if (!currentUser) {
+                alert('Please log in first to access this page.');
+                window.location.href = 'AI Finder Hub.html';
+            }
+        }
+
+        function updateUserInfo() {
+            document.getElementById('user-name').textContent = currentUser ? currentUser.name : '';
+        }
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function renderTools(toolsList = tools) {
+            const grid = document.getElementById('tools-grid');
+            grid.innerHTML = toolsList.map(tool => `
+                <div class="card" onclick="goToToolDetails('${tool.name}')">
+                    <h3>${tool.name}</h3>
+                    <p>${tool.description}</p>
+                    <span>${tool.category}</span>
+                </div>
+            `).join('');
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('search-input').value;
+            const category = getQueryParam('category');
+            filterTools(query, category);
+        }
+
+        function filterTools(query = '', category = '') {
+            let filtered = tools;
+            if (query) {
+                filtered = filtered.filter(tool => tool.name.toLowerCase().includes(query.toLowerCase()));
+            }
+            if (category) {
+                filtered = filtered.filter(tool => tool.category === category);
+            }
+            renderTools(filtered);
+        }
+
+        function goToToolDetails(toolName) {
+            window.location.href = 'tool-details.html?tool=' + encodeURIComponent(toolName);
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('user');
+            window.location.href = 'AI Finder Hub.html';
+        }
+
+        // Filter by category on load if present
+        window.addEventListener('DOMContentLoaded', function() {
+            const category = getQueryParam('category');
+            if (category) {
+                filterTools('', category);
+            }
+        });
+    </script>
+</body>
+</html>

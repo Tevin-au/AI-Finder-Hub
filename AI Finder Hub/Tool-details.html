@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Details - AI Finder Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tiempos+Headline:wght@400&family=Geist:wght@400;500&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --canvas: #000000;
+            --ink: #fcfdff;
+            --body: rgba(252, 253, 255, 0.86);
+            --surface-card: #0a0a0c;
+            --surface-elevated: #101012;
+            --surface-deep: #06060a;
+            --hairline: rgba(255, 255, 255, 0.06);
+            --hairline-strong: rgba(255, 255, 255, 0.14);
+            --primary: #fcfdff;
+            --primary-on: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Geist', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--canvas);
+            color: var(--ink);
+        }
+
+        .nav-bar {
+            background-color: var(--canvas);
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--hairline);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--body);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            padding: 0;
+        }
+
+        .back-btn:hover {
+            color: var(--ink);
+        }
+
+        .nav-bar .logo {
+            font-family: 'Tiempos Headline', serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--body);
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--body);
+        }
+
+        .logout-btn {
+            background-color: var(--surface-elevated);
+            color: var(--ink);
+            border: 1px solid var(--hairline-strong);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--surface-card);
+        }
+
+        .content {
+            padding: 96px 32px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-family: 'Tiempos Headline', serif;
+            font-size: 56px;
+            font-weight: 400;
+            margin: 0 0 24px 0;
+        }
+
+        .meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .meta span {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: rgba(252, 253, 255, 0.7);
+        }
+
+        .description {
+            font-family: 'Geist', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 48px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--body);
+            cursor: pointer;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--ink);
+            border-bottom-color: var(--ink);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background-color: var(--surface-card);
+            border: 1px solid var(--hairline-strong);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            margin: 0 0 8px 0;
+        }
+
+        .card p {
+            font-family: 'Geist', sans-serif;
+            font-size: 14px;
+            color: var(--body);
+            margin: 0;
+        }
+
+        .review-form {
+            background-color: var(--surface-card);
+            border: 1px solid var(--hairline-strong);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .review-form h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            margin: 0 0 16px 0;
+        }
+
+        .review-form input, .review-form textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--hairline-strong);
+            border-radius: 8px;
+            background-color: var(--surface-deep);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .review-form textarea {
+            height: 80px;
+        }
+
+        .review-form button {
+            background-color: var(--primary);
+            color: var(--primary-on);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .review {
+            background-color: var(--surface-elevated);
+            border: 1px solid var(--hairline-strong);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .review .rating {
+            color: #ffc53d;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .review p {
+            font-family: 'Geist', sans-serif;
+            font-size: 14px;
+            margin: 0;
+            color: var(--body);
+        }
+
+        .btn-secondary {
+            background-color: var(--surface-elevated);
+            color: var(--ink);
+            border: 1px solid var(--hairline-strong);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--surface-card);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <button class="back-btn" onclick="history.back()">← Back</button>
+            <a href="AI Finder Hub.html" class="logo">AI Finder Hub</a>
+        </div>
+        <nav class="nav-links">
+            <a href="categories.html">Categories</a>
+            <a href="tools.html">Tools</a>
+            <a href="favorites.html">Favorites</a>
+        </nav>
+        <div class="user-info">
+            <span class="user-name" id="user-name"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="content" id="tool-details-content"></div>
+
+    <script>
+        const tools = [
+            { 
+                name: 'DALL-E', 
+                category: 'Image Generation', 
+                description: 'Create images from text descriptions', 
+                articles: ['How to use DALL-E effectively', 'Advanced prompts guide'], 
+                reviews: [{ rating: 5, comment: 'Amazing quality!' }] 
+            },
+            { 
+                name: 'Midjourney', 
+                category: 'Image Generation', 
+                description: 'AI-powered image generation on Discord', 
+                articles: ['Getting started with Midjourney'], 
+                reviews: [{ rating: 4, comment: 'Great for artists' }] 
+            },
+            { 
+                name: 'TensorFlow', 
+                category: 'Data Analysis', 
+                description: 'Open-source platform for machine learning', 
+                articles: ['Getting started with TensorFlow'], 
+                reviews: [{ rating: 5, comment: 'Powerful and flexible' }] 
+            },
+            {
+                name: 'Gemini Enterprise Agent Platform',
+                category: 'Data Analysis',
+                description: 'Google Cloud AI platform that helps businesses create AI agents for data analysis, automation, and enterprise productivity',
+                articles: ['Google Cloud AI agent platform guide'],
+                reviews: [{ rating: 5, comment: 'Powerful AI platform for enterprise-level automation and analytics' }]
+            },
+            {
+                name: 'Microsoft Power BI',
+                category: 'Data Analysis',
+                description: 'Business intelligence and analytics platform that transforms raw data into interactive dashboards and reports',
+                articles: ['Microsoft Power BI overview', 'Building dashboards with Power BI'],
+                reviews: [{ rating: 5, comment: 'Excellent tool for data visualization and business reporting' }]
+            },
+            {
+                name: 'Power BI Service',
+                category: 'Data Analysis',
+                description: 'Cloud-based analytics service that allows teams to collaborate and share business reports online',
+                articles: ['Power BI Service collaboration guide', 'Sharing reports with Power BI Service'],
+                reviews: [{ rating: 4, comment: 'Very useful for collaborative business analytics and reporting' }]
+            },
+            {
+                name: 'DataRobot',
+                category: 'Data Analysis',
+                description: 'AI and machine learning platform designed to automate predictive analytics and simplify model development',
+                articles: ['Getting started with DataRobot', 'Automated machine learning best practices'],
+                reviews: [{ rating: 5, comment: 'Great platform for automated machine learning and predictive analytics' }]
+            },
+            {
+                name: 'Canva AI',
+                category: 'Image Generation',
+                description: 'AI-powered tool for creating digital art, posters, and graphic designs easily',
+                articles: ['How to use Canva AI effectively', 'Advanced prompts guide'],
+                reviews: [{ rating: 5, comment: 'Easy to use and great for beginners' }]
+            },
+            {
+                name: 'DeepAI',
+                category: 'Image Generation',
+                description: 'Online AI platform that generates unique images from text prompts',
+                articles: ['Getting started with DeepAI', 'Advanced image generation tips'],
+                reviews: [{ rating: 4, comment: 'Produces creative and detailed images' }]
+            },
+            {
+                name: 'Google Gemini',
+                category: 'Image Generation',
+                description: 'Google AI assistant capable of generating and enhancing visual content',
+                articles: ['Using Google Gemini for image creation', 'Best practices guide'],
+                reviews: [{ rating: 5, comment: 'Smart and versatile AI tool' }]
+            },
+            {
+                name: 'Leonardo AI',
+                category: 'Image Generation',
+                description: 'Advanced AI image generator focused on high-quality digital artwork and concepts',
+                articles: ['Leonardo AI tutorial', 'Creating professional artwork'],
+                reviews: [{ rating: 5, comment: 'Excellent for detailed and professional-looking art' }]
+            },
+            {
+                name: 'Imagine Art',
+                category: 'Image Generation',
+                description: 'AI art generator that transforms text prompts into creative digital images',
+                articles: ['Getting started with Imagine Art', 'Creative prompt techniques'],
+                reviews: [{ rating: 4, comment: 'Fun and fast image generation experience' }]
+            },
+            { 
+                name: 'ChatGPT', 
+                category: 'Text Processing', 
+                description: 'Conversational AI for various tasks', 
+                articles: ['Writing prompts', 'Code generation tips'], 
+                reviews: [{ rating: 5, comment: 'Versatile tool' }] 
+            },
+            {
+                name: 'AbiWord',
+                category: 'Text Processing',
+                description: 'Lightweight word processor suitable for creating and editing documents with basic formatting features',
+                articles: ['Getting started with AbiWord', 'Basic document editing guide'],
+                reviews: [{ rating: 4, comment: 'Simple, fast, and good for basic document work' }]
+            },
+            {
+                name: 'Collabora Online (ownCloud)',
+                category: 'Text Processing',
+                description: 'Online office suite integrated with ownCloud for collaborative document editing and processing',
+                articles: ['Using Collabora Online for collaborative editing', 'Collabora Online tips and tricks'],
+                reviews: [{ rating: 5, comment: 'Great for teamwork and real-time document collaboration' }]
+            },
+            {
+                name: 'WordGrinder',
+                category: 'Text Processing',
+                description: 'Minimalist text editor designed for distraction-free writing in a terminal environment',
+                articles: ['Using WordGrinder for focused writing', 'WordGrinder tips and tricks'],
+                reviews: [{ rating: 4, comment: 'Perfect for focused writing without distractions' }]
+            },
+            {
+                name: 'LibreOffice Writer',
+                category: 'Text Processing',
+                description: 'Full-featured open-source word processor for creating professional documents with advanced tools',
+                articles: ['Getting started with LibreOffice Writer', 'Advanced formatting techniques'],
+                reviews: [{ rating: 5, comment: 'Powerful and free alternative to Microsoft Word' }]
+            },
+            {
+                name: 'Notepad++',
+                category: 'Text Processing',
+                description: 'Free text and code editor with syntax highlighting and advanced editing features',
+                articles: [],
+                reviews: [{ rating: 5, comment: 'Highly efficient for both text editing and coding' }]
+            },
+            { 
+                name: 'GitHub Copilot', 
+                category: 'Code Assistants', 
+                description: 'AI code completion and suggestions', 
+                articles: ['Setup guide', 'Best practices'], 
+                reviews: [{ rating: 4, comment: 'Speeds up coding' }] 
+            }
+        ];
+
+        let currentUser = JSON.parse(localStorage.getItem('user')) || null;
+        let currentTool = null;
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+        window.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            updateUserInfo();
+            showToolDetails();
+        });
+
+        function checkAuth() {
+            if (!currentUser) {
+                alert('Please log in first to access this page.');
+                window.location.href = 'AI Finder Hub.html';
+            }
+        }
+
+        function updateUserInfo() {
+            document.getElementById('user-name').textContent = currentUser ? currentUser.name : '';
+        }
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function showToolDetails() {
+            const toolName = getQueryParam('tool');
+            currentTool = tools.find(t => t.name === toolName);
+            
+            if (!currentTool) {
+                document.getElementById('tool-details-content').innerHTML = '<p>Tool not found.</p>';
+                return;
+            }
+
+            const content = document.getElementById('tool-details-content');
+            content.innerHTML = `
+                <h2>${currentTool.name}</h2>
+                <div class="meta">
+                    <span>Category: ${currentTool.category}</span>
+                    <span>Reviews: ${currentTool.reviews.length}</span>
+                </div>
+                <p class="description">${currentTool.description}</p>
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('articles')">Articles</div>
+                    <div class="tab" onclick="switchTab('reviews')">Reviews</div>
+                </div>
+                <div id="articles" class="tab-content active">
+                    ${currentTool.articles.map(article => `<div class="card"><h3>${article}</h3><p>Read this guide to learn more.</p></div>`).join('')}
+                </div>
+                <div id="reviews" class="tab-content">
+                    <div class="review-form">
+                        <h4>Write a Review</h4>
+                        <input type="number" min="1" max="5" placeholder="Rating (1-5)" id="rating">
+                        <textarea placeholder="Your comment" id="comment"></textarea>
+                        <button onclick="submitReview()">Submit</button>
+                    </div>
+                    <div class="reviews-list">
+                        ${currentTool.reviews.map(review => `
+                            <div class="review">
+                                <div class="rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</div>
+                                <p>${review.comment}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <button class="btn-secondary" onclick="toggleFavorite('${currentTool.name}')">${favorites.includes(currentTool.name) ? '★ Remove from Favorites' : '☆ Add to Favorites'}</button>
+            `;
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`.tab[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function submitReview() {
+            const rating = document.getElementById('rating').value;
+            const comment = document.getElementById('comment').value;
+            if (rating && comment) {
+                currentTool.reviews.push({ rating: parseInt(rating), comment });
+                showToolDetails(); // Refresh
+                document.getElementById('rating').value = '';
+                document.getElementById('comment').value = '';
+            } else {
+                alert('Please fill in both rating and comment.');
+            }
+        }
+
+        function toggleFavorite(toolName) {
+            if (favorites.includes(toolName)) {
+                favorites = favorites.filter(f => f !== toolName);
+            } else {
+                favorites.push(toolName);
+            }
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            showToolDetails();
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('user');
+            window.location.href = 'AI Finder Hub.html';
+        }
+    </script>
+</body>
+</html>
