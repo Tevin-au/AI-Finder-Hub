@@ -282,11 +282,13 @@
             border-radius: 12px;
             padding: 24px;
             cursor: pointer;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
         }
 
         .card:hover {
             border-color: var(--ink);
+            background-color: var(--surface-elevated);
+            transform: translateY(-2px);
         }
 
         .card h3 {
@@ -550,11 +552,6 @@
         <div class="nav-left">
             <button class="back-btn" onclick="history.back()">← Back</button>
             <a href="#" class="logo" onclick="window.location.href='AI Finder Hub.html'">AI Finder Hub</a>
-        </div>
-        <nav class="nav-links" id="nav-links-auth">
-            <a href="categories.html">Categories</a>
-            <a href="tools.html">Tools</a>
-            <a href="favorites.html">Favorites</a>
         </nav>
         <div class="user-info" id="user-info">
             <span class="user-name" id="user-name"></span>
@@ -565,30 +562,11 @@
     <section id="hero" class="hero">
         <h1>AI Finder Hub</h1>
         <p class="subtitle">Discover AI tools quickly with clear reviews, guides, and smart recommendations.</p>
-        <div class="actions" style="display: none;">
-            <button class="btn-primary" onclick="window.location.href='categories.html'">Let's find AI Tool for you!</button>
+        <div style="margin-top:24px;" id="hero-actions">
+            <a class="btn-primary" href="login.html">Let's Find AI Tools for You!</a>
         </div>
     </section>
-
-    <section class="auth-section">
-        <div class="auth-tabs">
-            <div class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
-            <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
-        </div>
-        <div class="auth-form" id="login-form">
-            <h3>Login</h3>
-            <input type="email" placeholder="Email" id="login-email">
-            <input type="password" placeholder="Password" id="login-password">
-            <button onclick="login()">Login</button>
-        </div>
-        <div class="auth-form hidden" id="signup-form">
-            <h3>Sign Up</h3>
-            <input type="text" placeholder="Name" id="signup-name">
-            <input type="email" placeholder="Email" id="signup-email">
-            <input type="password" placeholder="Password" id="signup-password">
-            <button onclick="signup()">Sign Up</button>
-        </div>
-    </section>
+    <!-- Auth moved to login.html -->
 
     <footer>
         <p>&copy; 2026 AI Finder Hub. All rights reserved.</p>
@@ -607,133 +585,133 @@
                 name: 'DALL-E', 
                 category: 'Image Generation', 
                 description: 'Create images from text descriptions', 
-                articles: ['How to use DALL-E effectively', 'Advanced prompts guide'], 
+                articles: [{title: 'How to use DALL-E effectively', url: 'https://platform.openai.com/docs/guides/images'}, {title: 'Advanced prompts guide', url: 'https://openai.com/blog/dall-e'}], 
                 reviews: [{ rating: 5, comment: 'Amazing quality!' }] 
             },
             { 
                 name: 'Midjourney', 
                 category: 'Image Generation', 
                 description: 'AI-powered image generation on Discord', 
-                articles: ['Getting started with Midjourney'], 
+                articles: [{title: 'Getting started with Midjourney', url: 'https://docs.midjourney.com/docs/quick-start-guide'}], 
                 reviews: [{ rating: 4, comment: 'Great for artists' }] 
             },
             { 
                 name: 'TensorFlow', 
                 category: 'Data Analysis', 
                 description: 'Open-source platform for machine learning', 
-                articles: ['Getting started with TensorFlow'], 
+                articles: [{title: 'Getting started with TensorFlow', url: 'https://www.tensorflow.org/learn'}], 
                 reviews: [{ rating: 5, comment: 'Powerful and flexible' }] 
             },
             {
                 name: 'Gemini Enterprise Agent Platform',
                 category: 'Data Analysis',
                 description: 'Google Cloud AI platform that helps businesses create AI agents for data analysis, automation, and enterprise productivity',
-                articles: ['Google Cloud AI agent platform guide'],
+                articles: [{title: 'Google Cloud AI agent platform guide', url: 'https://cloud.google.com/docs/gemini/agent-framework'}],
                 reviews: [{ rating: 5, comment: 'Powerful AI platform for enterprise-level automation and analytics' }]
             },
             {
                 name: 'Microsoft Power BI',
                 category: 'Data Analysis',
                 description: 'Business intelligence and analytics platform that transforms raw data into interactive dashboards and reports',
-                articles: ['Microsoft Power BI overview', 'Building dashboards with Power BI'],
+                articles: [{title: 'Microsoft Power BI overview', url: 'https://learn.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview'}, {title: 'Building dashboards with Power BI', url: 'https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards'}],
                 reviews: [{ rating: 5, comment: 'Excellent tool for data visualization and business reporting' }]
             },
             {
                 name: 'Power BI Service',
                 category: 'Data Analysis',
                 description: 'Cloud-based analytics service that allows teams to collaborate and share business reports online',
-                articles: ['Power BI Service collaboration guide', 'Sharing reports with Power BI Service'],
+                articles: [{title: 'Power BI Service collaboration guide', url: 'https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-share-dashboards'}, {title: 'Sharing reports with Power BI Service', url: 'https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-share-reports'}],
                 reviews: [{ rating: 4, comment: 'Very useful for collaborative business analytics and reporting' }]
             },
             {
                 name: 'DataRobot',
                 category: 'Data Analysis',
                 description: 'AI and machine learning platform designed to automate predictive analytics and simplify model development',
-                articles: ['Getting started with DataRobot', 'Automated machine learning best practices'],
+                articles: [{title: 'Getting started with DataRobot', url: 'https://docs.datarobot.com/en/docs'}, {title: 'Automated machine learning best practices', url: 'https://docs.datarobot.com/en/docs/modeling/automl-best-practices'}],
                 reviews: [{ rating: 5, comment: 'Great platform for automated machine learning and predictive analytics' }]
             },
             {
                 name: 'Canva AI',
                 category: 'Image Generation',
                 description: 'AI-powered tool for creating digital art, posters, and graphic designs easily',
-                articles: ['How to use Canva AI effectively', 'Advanced prompts guide'],
+                articles: [{title: 'How to use Canva AI effectively', url: 'https://www.canva.com/learn/'}, {title: 'Advanced prompts guide', url: 'https://www.canva.com/design/tutorials/'}],
                 reviews: [{ rating: 5, comment: 'Easy to use and great for beginners' }]
             },
             {
                 name: 'DeepAI',
                 category: 'Image Generation',
                 description: 'Online AI platform that generates unique images from text prompts',
-                articles: ['Getting started with DeepAI', 'Advanced image generation tips'],
+                articles: [{title: 'Getting started with DeepAI', url: 'https://deepai.org/'}, {title: 'Advanced image generation tips', url: 'https://deepai.org/machine-learning-model/text2img'}],
                 reviews: [{ rating: 4, comment: 'Produces creative and detailed images' }]
             },
             {
                 name: 'Google Gemini',
                 category: 'Image Generation',
                 description: 'Google AI assistant capable of generating and enhancing visual content',
-                articles: ['Using Google Gemini for image creation', 'Best practices guide'],
+                articles: [{title: 'Using Google Gemini for image creation', url: 'https://gemini.google.com/'}, {title: 'Best practices guide', url: 'https://ai.google.dev/tutorials'}],
                 reviews: [{ rating: 5, comment: 'Smart and versatile AI tool' }]
             },
             {
                 name: 'Leonardo AI',
                 category: 'Image Generation',
                 description: 'Advanced AI image generator focused on high-quality digital artwork and concepts',
-                articles: ['Leonardo AI tutorial', 'Creating professional artwork'],
+                articles: [{title: 'Leonardo AI tutorial', url: 'https://leonardo.ai/'}, {title: 'Creating professional artwork', url: 'https://leonardo.ai/help'}],
                 reviews: [{ rating: 5, comment: 'Excellent for detailed and professional-looking art' }]
             },
             {
                 name: 'Imagine Art',
                 category: 'Image Generation',
                 description: 'AI art generator that transforms text prompts into creative digital images',
-                articles: ['Getting started with Imagine Art', 'Creative prompt techniques'],
+                articles: [{title: 'Getting started with Imagine Art', url: 'https://www.imagine-art.com/'}, {title: 'Creative prompt techniques', url: 'https://www.imagine-art.com/help'}],
                 reviews: [{ rating: 4, comment: 'Fun and fast image generation experience' }]
             },
             { 
                 name: 'ChatGPT', 
                 category: 'Text Processing', 
                 description: 'Conversational AI for various tasks', 
-                articles: ['Writing prompts', 'Code generation tips'], 
+                articles: [{title: 'Writing prompts', url: 'https://platform.openai.com/docs/guides/gpt-best-practices'}, {title: 'Code generation tips', url: 'https://platform.openai.com/docs/guides/prompt-engineering'}], 
                 reviews: [{ rating: 5, comment: 'Versatile tool' }] 
             },
             {
                 name: 'AbiWord',
                 category: 'Text Processing',
                 description: 'Lightweight word processor suitable for creating and editing documents with basic formatting features',
-                articles: ['Getting started with AbiWord', 'Basic document editing guide'],
+                articles: [{title: 'Getting started with AbiWord', url: 'https://www.abiword.org/wiki/index.php?page=Getting%20Started'}, {title: 'Basic document editing guide', url: 'https://www.abiword.org/'}],
                 reviews: [{ rating: 4, comment: 'Simple, fast, and good for basic document work' }]
             },
             {
                 name: 'Collabora Online (ownCloud)',
                 category: 'Text Processing',
                 description: 'Online office suite integrated with ownCloud for collaborative document editing and processing',
-                articles: ['Using Collabora Online for collaborative editing', 'Collabora Online tips and tricks'],
+                articles: [{title: 'Using Collabora Online for collaborative editing', url: 'https://collaboraonline.github.io/'}, {title: 'Collabora Online tips and tricks', url: 'https://collaboraonline.github.io/How-To'}],
                 reviews: [{ rating: 5, comment: 'Great for teamwork and real-time document collaboration' }]
             },
             {
                 name: 'WordGrinder',
                 category: 'Text Processing',
                 description: 'Minimalist text editor designed for distraction-free writing in a terminal environment',
-                articles: ['Using WordGrinder for focused writing', 'WordGrinder tips and tricks'],
+                articles: [{title: 'Using WordGrinder for focused writing', url: 'https://cowlark.com/wordgrinder/'}, {title: 'WordGrinder tips and tricks', url: 'https://cowlark.com/wordgrinder/help/'}],
                 reviews: [{ rating: 4, comment: 'Perfect for focused writing without distractions' }]
             },
             {
                 name: 'LibreOffice Writer',
                 category: 'Text Processing',
                 description: 'Full-featured open-source word processor for creating professional documents with advanced tools',
-                articles: [''],
+                articles: [{title: 'LibreOffice Writer guide', url: 'https://www.libreoffice.org/get-help/documentation/'}],
                 reviews: [{ rating: 5, comment: 'Powerful and free alternative to Microsoft Word' }]
             },
             {
                 name: 'Notepad++',
                 category: 'Text Processing',
                 description: 'Free text and code editor with syntax highlighting and advanced editing features',
-                articles: ['Read this guide to learn more.'],
+                articles: [{title: 'Notepad++ user manual', url: 'https://npp-user-manual.org/docs/'}],
                 reviews: [{ rating: 5, comment: 'Highly efficient for both text editing and coding' }]
             },
             { 
                 name: 'GitHub Copilot', 
                 category: 'Code Assistants', 
                 description: 'AI code completion and suggestions', 
-                articles: ['Setup guide', 'Best practices'], 
+                articles: [{title: 'Setup guide', url: 'https://docs.github.com/en/copilot/getting-started-with-github-copilot'}, {title: 'Best practices', url: 'https://docs.github.com/en/copilot/using-github-copilot'}], 
                 reviews: [{ rating: 4, comment: 'Speeds up coding' }] 
             }
         ];
@@ -753,22 +731,19 @@
             const userInfo = document.getElementById('user-info');
             const navLinks = document.getElementById('nav-links-auth');
             const userName = document.getElementById('user-name');
-            const authSection = document.querySelector('.auth-section');
-            const heroActions = document.querySelector('.hero .actions');
+            const heroActions = document.getElementById('hero-actions');
 
             if (currentUser) {
                 // User is logged in
                 userInfo.classList.add('active');
                 userName.textContent = currentUser.name;
                 if (navLinks) navLinks.style.display = 'flex';
-                if (authSection) authSection.classList.add('hidden');
-                if (heroActions) heroActions.style.display = 'flex';
+                if (heroActions) heroActions.innerHTML = '<button class="btn-primary" onclick="window.location.href=\'categories.html\'">Let\'s find ai tools for you</button>';
             } else {
                 // User is not logged in
                 userInfo.classList.remove('active');
                 if (navLinks) navLinks.style.display = 'flex';
-                if (authSection) authSection.classList.remove('hidden');
-                if (heroActions) heroActions.style.display = 'none';
+                if (heroActions) heroActions.innerHTML = '<a class="btn-primary" href="login.html">Let\'s find ai tools for you</a>';
             }
         }
 
@@ -835,6 +810,18 @@
             renderTools(filtered);
         }
 
+        function openArticle(url) {
+            window.open(url, '_blank');
+        }
+
+        function renderArticles() {
+            let html = '';
+            currentTool.articles.forEach((article, idx) => {
+                html += `<div class="card article-card" data-article-idx="${idx}"><h3>${article.title}</h3><p>Click to read the full guide →</p></div>`;
+            });
+            return html;
+        }
+
         function showToolDetails(toolName) {
             currentTool = tools.find(t => t.name === toolName);
             const content = document.getElementById('tool-details-content');
@@ -850,7 +837,7 @@
                     <div class="tab" onclick="switchTab('reviews')">Reviews</div>
                 </div>
                 <div id="articles" class="tab-content active">
-                    ${currentTool.articles.map(article => `<div class="card"><h3>${article}</h3><p>Read this guide to learn more.</p></div>`).join('')}
+                    ${renderArticles()}
                 </div>
                 <div id="reviews" class="tab-content">
                     <div class="review-form">
@@ -871,6 +858,14 @@
                 <button class="btn-secondary" onclick="toggleFavorite('${currentTool.name}')">${favorites.includes(currentTool.name) ? 'Remove from Favorites' : 'Add to Favorites'}</button>
             `;
             showSection('tool-details');
+            
+            // Attach event listeners to article cards
+            document.querySelectorAll('.article-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const idx = this.getAttribute('data-article-idx');
+                    openArticle(currentTool.articles[idx].url);
+                });
+            });
         }
 
         function switchTab(tabName) {

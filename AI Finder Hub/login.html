@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up - AI Finder Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tiempos+Headline:wght@400&family=Geist:wght@400;500&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --canvas: #000000;
+            --ink: #fcfdff;
+            --body: rgba(252, 253, 255, 0.86);
+            --surface-card: #0a0a0c;
+            --surface-elevated: #101012;
+            --surface-deep: #06060a;
+            --hairline: rgba(255, 255, 255, 0.06);
+            --hairline-strong: rgba(255, 255, 255, 0.14);
+            --primary: #fcfdff;
+            --primary-on: #000000;
+        }
+        body { font-family: 'Geist', sans-serif; margin:0; background:var(--canvas); color:var(--ink); }
+        .nav-bar { background-color: var(--canvas); padding: 0 32px; height: 64px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--hairline); }
+        .logo { font-family: 'Tiempos Headline', serif; font-size: 24px; color:var(--ink); text-decoration:none; }
+        .auth-section { padding: 96px 32px; max-width: 420px; margin: 0 auto; }
+        .auth-tabs { display:flex; margin-bottom: 24px; }
+        .auth-tab { flex:1; padding:12px; background:var(--surface-card); border:1px solid var(--hairline-strong); border-radius:8px 8px 0 0; text-align:center; cursor:pointer; color:var(--body); }
+        .auth-tab.active { background:var(--surface-elevated); color:var(--ink); }
+        .auth-form { background:var(--surface-card); border:1px solid var(--hairline-strong); border-radius:0 12px 12px 12px; padding:32px; }
+        .auth-form input { width:100%; padding:12px 16px; border:1px solid var(--hairline-strong); border-radius:8px; background:var(--surface-deep); color:var(--ink); margin-bottom:16px; }
+        .auth-form button { width:100%; padding:12px; background:var(--primary); color:var(--primary-on); border:none; border-radius:8px; cursor:pointer; }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a class="logo" href="AI Finder Hub.html">AI Finder Hub</a>
+        <div></div>
+    </nav>
+
+    <section class="auth-section">
+        <div class="auth-tabs">
+            <div class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
+            <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+        </div>
+        <div class="auth-form" id="login-form">
+            <h3 style="text-align:center; margin-top:0;">Login</h3>
+            <input type="email" placeholder="Email" id="login-email">
+            <input type="password" placeholder="Password" id="login-password">
+            <button onclick="login()">Login</button>
+        </div>
+        <div class="auth-form" id="signup-form" style="display:none;">
+            <h3 style="text-align:center; margin-top:0;">Sign Up</h3>
+            <input type="text" placeholder="Name" id="signup-name">
+            <input type="email" placeholder="Email" id="signup-email">
+            <input type="password" placeholder="Password" id="signup-password">
+            <button onclick="signup()">Sign Up</button>
+        </div>
+    </section>
+
+    <script>
+        let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('user')) || null;
+
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.style.display = 'none');
+            document.querySelector(`.auth-tab[onclick="switchAuthTab('${tab}')"]`).classList.add('active');
+            if (tab === 'login') document.getElementById('login-form').style.display = 'block';
+            if (tab === 'signup') document.getElementById('signup-form').style.display = 'block';
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function login() {
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            if (!email || !password) { alert('Please fill in all fields.'); return; }
+            const user = registeredUsers.find(u => u.email === email);
+            if (!user) { alert('Email not registered. Please sign up first.'); return; }
+            if (user.password !== password) { alert('Incorrect password.'); return; }
+            currentUser = { name: user.name, email: user.email };
+            localStorage.setItem('user', JSON.stringify(currentUser));
+            alert('Logged in successfully!');
+            window.location.href = 'categories.html';
+        }
+
+        function signup() {
+            const name = document.getElementById('signup-name').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-password').value;
+            if (!name || !email || !password) { alert('Please fill in all fields.'); return; }
+            if (!isValidEmail(email)) { alert('Please enter a valid email address.'); return; }
+            const emailExists = registeredUsers.some(u => u.email === email);
+            if (emailExists) { alert('This email is already registered. Please use a different email or log in.'); return; }
+            registeredUsers.push({ name, email, password });
+            localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+            currentUser = { name, email };
+            localStorage.setItem('user', JSON.stringify(currentUser));
+            alert('Account created and logged in successfully!');
+            window.location.href = 'categories.html';
+        }
+    </script>
+</body>
+</html>
