@@ -21,9 +21,7 @@
             --accent-blue-glow: rgba(0, 117, 255, 0.34);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             font-family: 'Geist', sans-serif;
@@ -34,11 +32,61 @@
             line-height: 1.5;
         }
 
+        .nav-bar {
+            background-color: var(--canvas);
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--hairline);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .nav-left { display: flex; align-items: center; }
+
+        .back-btn { display: none; }
+
+        .nav-bar .logo {
+            font-family: 'Tiempos Headline', serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .user-info {
+            display: none;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-info.active { display: flex; }
+
+        .user-name { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--body); }
+
+        .logout-btn {
+            background-color: var(--surface-elevated);
+            color: var(--ink);
+            border: 1px solid var(--hairline-strong);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover { background-color: var(--surface-card); }
+
         .hero {
             background-color: var(--canvas);
-            padding: 128px 32px;
+            padding: 128px 32px 96px;
             text-align: center;
             position: relative;
+            margin-top: 64px;
         }
 
         .hero::before {
@@ -61,6 +109,7 @@
             letter-spacing: -0.96px;
             margin: 0 0 24px 0;
             color: var(--ink);
+            position: relative;
         }
 
         .hero .subtitle {
@@ -73,101 +122,24 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
         }
 
         .btn-primary {
             background-color: var(--primary);
             color: var(--primary-on);
             border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 10px 18px;
+            border-radius: 10px;
             font-family: 'Inter', sans-serif;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             line-height: 1.43;
             cursor: pointer;
             display: inline-block;
             text-decoration: none;
+            position: relative;
         }
-
-        .section {
-            padding: 96px 32px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section h2 {
-            font-family: 'Tiempos Headline', serif;
-            font-size: 76.8px;
-            font-weight: 400;
-            line-height: 1.0;
-            letter-spacing: -0.768px;
-            margin: 0 0 48px 0;
-            color: var(--ink);
-        }
-
-        .section p {
-            font-family: 'Geist', sans-serif;
-            font-size: 18px;
-            font-weight: 400;
-            line-height: 1.5;
-            color: var(--body);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background-color: var(--surface-card);
-            border: 1px solid var(--hairline-strong);
-            border-radius: 12px;
-            padding: 32px;
-            margin: 24px 0;
-            color: var(--ink);
-        }
-
-        .feature-card h3 {
-            font-family: 'Inter', sans-serif;
-            font-size: 24px;
-            font-weight: 500;
-            line-height: 1.5;
-            margin: 0 0 16px 0;
-        }
-
-        .feature-card p {
-            font-family: 'Geist', sans-serif;
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 1.5;
-            color: var(--body);
-        }
-
-        .code-window {
-            background-color: #06060a;
-            border: 1px solid var(--hairline-strong);
-            border-radius: 12px;
-            padding: 24px;
-            font-family: 'Geist Mono', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            color: var(--body);
-            margin: 24px 0;
-        }
-
-        .code-window .traffic-lights {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .code-window .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .dot.red { background-color: #ff2047; }
-        .dot.yellow { background-color: #ffc53d; }
-        .dot.green { background-color: #11ff99; }
 
         footer {
             background-color: var(--canvas);
@@ -183,368 +155,8 @@
             margin: 0;
         }
 
-        .nav-bar {
-            background-color: var(--canvas);
-            padding: 0 32px;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--hairline);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 10;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-        }
-
-        .back-btn {
-            display: none;
-        }
-
-        .nav-bar .logo {
-            font-family: 'Tiempos Headline', serif;
-            font-size: 24px;
-            font-weight: 400;
-            color: var(--ink);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-        }
-
-        .nav-links a {
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            color: var(--body);
-            text-decoration: none;
-        }
-
-        .nav-links a:hover {
-            color: var(--ink);
-        }
-
-        .hero {
-            background-color: var(--canvas);
-            padding: 128px 32px 96px;
-            text-align: center;
-            position: relative;
-            margin-top: 64px;
-        }
-
-        .hero .actions {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .action-description {
-            max-width: 700px;
-            margin: 0 auto 24px;
-            font-family: 'Geist', sans-serif;
-            font-size: 16px;
-            color: var(--body);
-            line-height: 1.6;
-        }
-
-        .btn-secondary {
-            background-color: var(--surface-elevated);
-            color: var(--ink);
-            border: 1px solid var(--hairline-strong);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 1.43;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-
-        .card {
-            background-color: var(--surface-card);
-            border: 1px solid var(--hairline-strong);
-            border-radius: 12px;
-            padding: 24px;
-            cursor: pointer;
-            transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
-        }
-
-        .card:hover {
-            border-color: var(--ink);
-            background-color: var(--surface-elevated);
-            transform: translateY(-2px);
-        }
-
-        .card h3 {
-            font-family: 'Inter', sans-serif;
-            font-size: 20px;
-            font-weight: 500;
-            margin: 0 0 8px 0;
-            color: var(--ink);
-        }
-
-        .card p {
-            font-family: 'Geist', sans-serif;
-            font-size: 14px;
-            color: var(--body);
-            margin: 0;
-        }
-
-        .search-input {
-            width: 100%;
-            max-width: 400px;
-            padding: 10px 14px;
-            border: 1px solid var(--hairline-strong);
-            border-radius: 8px;
-            background-color: var(--surface-card);
-            color: var(--ink);
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-        }
-
-        .tool-details {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .tool-details h2 {
-            font-family: 'Tiempos Headline', serif;
-            font-size: 56px;
-            font-weight: 400;
-            line-height: 1.2;
-            letter-spacing: -2.8px;
-            margin: 0 0 24px 0;
-        }
-
-        .tool-details .meta {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .tool-details .meta span {
-            font-family: 'Inter', sans-serif;
-            font-size: 12px;
-            color: rgba(252, 253, 255, 0.7);
-        }
-
-        .tool-details .description {
-            font-family: 'Geist', sans-serif;
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 48px;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-
-        .tab {
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            color: var(--body);
-            cursor: pointer;
-            padding: 8px 0;
-            border-bottom: 2px solid transparent;
-        }
-
-        .tab.active {
-            color: var(--ink);
-            border-bottom-color: var(--ink);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .review-form {
-            background-color: var(--surface-card);
-            border: 1px solid var(--hairline-strong);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 24px;
-        }
-
-        .review-form h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 18px;
-            margin: 0 0 16px 0;
-        }
-
-        .review-form input, .review-form textarea {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid var(--hairline-strong);
-            border-radius: 8px;
-            background-color: var(--surface-deep);
-            color: var(--ink);
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-
-        .review-form textarea {
-            height: 80px;
-        }
-
-        .reviews-list .review {
-            background-color: var(--surface-card);
-            border: 1px solid var(--hairline-strong);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .review .rating {
-            color: #ffc53d;
-            margin-bottom: 8px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .description-section {
-            padding: 96px 32px;
-            text-align: center;
-            background-color: var(--canvas);
-        }
-
-        .description-section p {
-            font-family: 'Geist', sans-serif;
-            font-size: 18px;
-            font-weight: 400;
-            line-height: 1.5;
-            color: var(--body);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .auth-section {
-            padding: 48px 32px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .auth-tabs {
-            display: flex;
-            margin-bottom: 24px;
-        }
-
-        .auth-tab {
-            flex: 1;
-            padding: 12px;
-            background-color: var(--surface-card);
-            border: 1px solid var(--hairline-strong);
-            border-radius: 8px 8px 0 0;
-            text-align: center;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            color: var(--body);
-        }
-
-        .auth-tab.active {
-            background-color: var(--surface-elevated);
-            color: var(--ink);
-            border-bottom-color: var(--surface-elevated);
-        }
-
-        .auth-form {
-            background-color: var(--surface-card);
-            border: 1px solid var(--hairline-strong);
-            border-radius: 0 12px 12px 12px;
-            padding: 32px;
-        }
-
-        .auth-form h3 {
-            font-family: 'Inter', sans-serif;
-            font-size: 20px;
-            margin: 0 0 24px 0;
-            text-align: center;
-        }
-
-        .auth-form input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--hairline-strong);
-            border-radius: 8px;
-            background-color: var(--surface-deep);
-            color: var(--ink);
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            margin-bottom: 16px;
-        }
-
-        .auth-form input::placeholder {
-            color: rgba(252, 253, 255, 0.5);
-        }
-
-        .auth-form button {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary);
-            color: var(--primary-on);
-            border: none;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .user-info {
-            display: none;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .user-info.active {
-            display: flex;
-        }
-
-        .user-name {
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            color: var(--body);
-        }
-
-        .logout-btn {
-            background-color: var(--surface-elevated);
-            color: var(--ink);
-            border: 1px solid var(--hairline-strong);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-family: 'Inter', sans-serif;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        .logout-btn:hover {
-            background-color: var(--surface-card);
-        }
+        /* Hide auth forms on the first page (login.html is separate) */
+        .auth-section { display: none; }
     </style>
 </head>
 <body>
@@ -552,7 +164,7 @@
         <div class="nav-left">
             <button class="back-btn" onclick="history.back()">← Back</button>
             <a href="#" class="logo" onclick="window.location.href='AI Finder Hub.html'">AI Finder Hub</a>
-        </nav>
+        </div>
         <div class="user-info" id="user-info">
             <span class="user-name" id="user-name"></span>
             <button class="logout-btn" onclick="logout()">Logout</button>
@@ -566,195 +178,27 @@
             <a class="btn-primary" href="login.html">Let's Find AI Tools for You!</a>
         </div>
     </section>
-    <!-- Auth moved to login.html -->
 
     <footer>
         <p>&copy; 2026 AI Finder Hub. All rights reserved.</p>
     </footer>
 
     <script>
-        const categories = [
-            { name: 'Image Generation', description: 'Tools for creating images with AI' },
-            { name: 'Text Processing', description: 'AI for writing, editing, and analyzing text' },
-            { name: 'Code Assistants', description: 'Help with programming and development' },
-            { name: 'Data Analysis', description: 'AI tools for data insights' }
-        ];
-
-        const tools = [
-            { 
-                name: 'DALL-E', 
-                category: 'Image Generation', 
-                description: 'Create images from text descriptions', 
-                articles: [{title: 'How to use DALL-E effectively', url: 'https://platform.openai.com/docs/guides/images'}, {title: 'Advanced prompts guide', url: 'https://openai.com/blog/dall-e'}], 
-                reviews: [{ rating: 5, comment: 'Amazing quality!' }] 
-            },
-            { 
-                name: 'Midjourney', 
-                category: 'Image Generation', 
-                description: 'AI-powered image generation on Discord', 
-                articles: [{title: 'Getting started with Midjourney', url: 'https://docs.midjourney.com/docs/quick-start-guide'}], 
-                reviews: [{ rating: 4, comment: 'Great for artists' }] 
-            },
-            { 
-                name: 'TensorFlow', 
-                category: 'Data Analysis', 
-                description: 'Open-source platform for machine learning', 
-                articles: [{title: 'Getting started with TensorFlow', url: 'https://www.tensorflow.org/learn'}], 
-                reviews: [{ rating: 5, comment: 'Powerful and flexible' }] 
-            },
-            {
-                name: 'Gemini Enterprise Agent Platform',
-                category: 'Data Analysis',
-                description: 'Google Cloud AI platform that helps businesses create AI agents for data analysis, automation, and enterprise productivity',
-                articles: [{title: 'Google Cloud AI agent platform guide', url: 'https://cloud.google.com/docs/gemini/agent-framework'}],
-                reviews: [{ rating: 5, comment: 'Powerful AI platform for enterprise-level automation and analytics' }]
-            },
-            {
-                name: 'Microsoft Power BI',
-                category: 'Data Analysis',
-                description: 'Business intelligence and analytics platform that transforms raw data into interactive dashboards and reports',
-                articles: [{title: 'Microsoft Power BI overview', url: 'https://learn.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview'}, {title: 'Building dashboards with Power BI', url: 'https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards'}],
-                reviews: [{ rating: 5, comment: 'Excellent tool for data visualization and business reporting' }]
-            },
-            {
-                name: 'Power BI Service',
-                category: 'Data Analysis',
-                description: 'Cloud-based analytics service that allows teams to collaborate and share business reports online',
-                articles: [{title: 'Power BI Service collaboration guide', url: 'https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-share-dashboards'}, {title: 'Sharing reports with Power BI Service', url: 'https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-share-reports'}],
-                reviews: [{ rating: 4, comment: 'Very useful for collaborative business analytics and reporting' }]
-            },
-            {
-                name: 'DataRobot',
-                category: 'Data Analysis',
-                description: 'AI and machine learning platform designed to automate predictive analytics and simplify model development',
-                articles: [{title: 'Getting started with DataRobot', url: 'https://docs.datarobot.com/en/docs'}, {title: 'Automated machine learning best practices', url: 'https://docs.datarobot.com/en/docs/modeling/automl-best-practices'}],
-                reviews: [{ rating: 5, comment: 'Great platform for automated machine learning and predictive analytics' }]
-            },
-            {
-                name: 'Canva AI',
-                category: 'Image Generation',
-                description: 'AI-powered tool for creating digital art, posters, and graphic designs easily',
-                articles: [{title: 'How to use Canva AI effectively', url: 'https://www.canva.com/learn/'}, {title: 'Advanced prompts guide', url: 'https://www.canva.com/design/tutorials/'}],
-                reviews: [{ rating: 5, comment: 'Easy to use and great for beginners' }]
-            },
-            {
-                name: 'DeepAI',
-                category: 'Image Generation',
-                description: 'Online AI platform that generates unique images from text prompts',
-                articles: [{title: 'Getting started with DeepAI', url: 'https://deepai.org/'}, {title: 'Advanced image generation tips', url: 'https://deepai.org/machine-learning-model/text2img'}],
-                reviews: [{ rating: 4, comment: 'Produces creative and detailed images' }]
-            },
-            {
-                name: 'Google Gemini',
-                category: 'Image Generation',
-                description: 'Google AI assistant capable of generating and enhancing visual content',
-                articles: [{title: 'Using Google Gemini for image creation', url: 'https://gemini.google.com/'}, {title: 'Best practices guide', url: 'https://ai.google.dev/tutorials'}],
-                reviews: [{ rating: 5, comment: 'Smart and versatile AI tool' }]
-            },
-            {
-                name: 'Leonardo AI',
-                category: 'Image Generation',
-                description: 'Advanced AI image generator focused on high-quality digital artwork and concepts',
-                articles: [{title: 'Leonardo AI tutorial', url: 'https://leonardo.ai/'}, {title: 'Creating professional artwork', url: 'https://leonardo.ai/help'}],
-                reviews: [{ rating: 5, comment: 'Excellent for detailed and professional-looking art' }]
-            },
-            {
-                name: 'Imagine Art',
-                category: 'Image Generation',
-                description: 'AI art generator that transforms text prompts into creative digital images',
-                articles: [{title: 'Getting started with Imagine Art', url: 'https://www.imagine-art.com/'}, {title: 'Creative prompt techniques', url: 'https://www.imagine-art.com/help'}],
-                reviews: [{ rating: 4, comment: 'Fun and fast image generation experience' }]
-            },
-            { 
-                name: 'ChatGPT', 
-                category: 'Text Processing', 
-                description: 'Conversational AI for various tasks', 
-                articles: [{title: 'Writing prompts', url: 'https://platform.openai.com/docs/guides/gpt-best-practices'}, {title: 'Code generation tips', url: 'https://platform.openai.com/docs/guides/prompt-engineering'}], 
-                reviews: [{ rating: 5, comment: 'Versatile tool' }] 
-            },
-            {
-                name: 'AbiWord',
-                category: 'Text Processing',
-                description: 'Lightweight word processor suitable for creating and editing documents with basic formatting features',
-                articles: [{title: 'Getting started with AbiWord', url: 'https://www.abiword.org/wiki/index.php?page=Getting%20Started'}, {title: 'Basic document editing guide', url: 'https://www.abiword.org/'}],
-                reviews: [{ rating: 4, comment: 'Simple, fast, and good for basic document work' }]
-            },
-            {
-                name: 'Collabora Online (ownCloud)',
-                category: 'Text Processing',
-                description: 'Online office suite integrated with ownCloud for collaborative document editing and processing',
-                articles: [{title: 'Using Collabora Online for collaborative editing', url: 'https://collaboraonline.github.io/'}, {title: 'Collabora Online tips and tricks', url: 'https://collaboraonline.github.io/How-To'}],
-                reviews: [{ rating: 5, comment: 'Great for teamwork and real-time document collaboration' }]
-            },
-            {
-                name: 'WordGrinder',
-                category: 'Text Processing',
-                description: 'Minimalist text editor designed for distraction-free writing in a terminal environment',
-                articles: [{title: 'Using WordGrinder for focused writing', url: 'https://cowlark.com/wordgrinder/'}, {title: 'WordGrinder tips and tricks', url: 'https://cowlark.com/wordgrinder/help/'}],
-                reviews: [{ rating: 4, comment: 'Perfect for focused writing without distractions' }]
-            },
-            {
-                name: 'LibreOffice Writer',
-                category: 'Text Processing',
-                description: 'Full-featured open-source word processor for creating professional documents with advanced tools',
-                articles: [{title: 'LibreOffice Writer guide', url: 'https://www.libreoffice.org/get-help/documentation/'}],
-                reviews: [{ rating: 5, comment: 'Powerful and free alternative to Microsoft Word' }]
-            },
-            {
-                name: 'Notepad++',
-                category: 'Text Processing',
-                description: 'Free text and code editor with syntax highlighting and advanced editing features',
-                articles: [{title: 'Notepad++ user manual', url: 'https://npp-user-manual.org/docs/'}],
-                reviews: [{ rating: 5, comment: 'Highly efficient for both text editing and coding' }]
-            },
-            { 
-                name: 'GitHub Copilot', 
-                category: 'Code Assistants', 
-                description: 'AI code completion and suggestions', 
-                articles: [{title: 'Setup guide', url: 'https://docs.github.com/en/copilot/getting-started-with-github-copilot'}, {title: 'Best practices', url: 'https://docs.github.com/en/copilot/using-github-copilot'}], 
-                reviews: [{ rating: 4, comment: 'Speeds up coding' }] 
-            }
-        ];
-
-        let currentTool = null;
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
         let currentUser = JSON.parse(localStorage.getItem('user')) || null;
 
-        // Check auth on page load
         window.addEventListener('DOMContentLoaded', function() {
             updateAuthUI();
-            protectAuthPages();
         });
 
         function updateAuthUI() {
             const userInfo = document.getElementById('user-info');
-            const navLinks = document.getElementById('nav-links-auth');
             const userName = document.getElementById('user-name');
-            const heroActions = document.getElementById('hero-actions');
 
             if (currentUser) {
-                // User is logged in
                 userInfo.classList.add('active');
                 userName.textContent = currentUser.name;
-                if (navLinks) navLinks.style.display = 'flex';
-                if (heroActions) heroActions.innerHTML = '<button class="btn-primary" onclick="window.location.href=\'categories.html\'">Let\'s find ai tools for you</button>';
             } else {
-                // User is not logged in
                 userInfo.classList.remove('active');
-                if (navLinks) navLinks.style.display = 'flex';
-                if (heroActions) heroActions.innerHTML = '<a class="btn-primary" href="login.html">Let\'s find ai tools for you</a>';
-            }
-        }
-
-        function protectAuthPages() {
-            // Check if accessing protected pages without login
-            const currentPage = window.location.pathname.split('/').pop() || 'AI Finder Hub.html';
-            const protectedPages = ['categories.html', 'tools.html', 'tool-details.html', 'favorites.html'];
-            
-            if (protectedPages.includes(currentPage) && !currentUser) {
-                alert('Please log in first to access this page.');
-                window.location.href = 'AI Finder Hub.html';
             }
         }
 
@@ -764,232 +208,7 @@
             updateAuthUI();
             window.location.href = 'AI Finder Hub.html';
         }
-
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
-            document.getElementById(sectionId).classList.remove('hidden');
-            if (sectionId === 'categories') renderCategories();
-            if (sectionId === 'tools') renderTools();
-            if (sectionId === 'favorites') renderFavorites();
-        }
-
-        function renderCategories() {
-            const grid = document.getElementById('categories-grid');
-            grid.innerHTML = categories.map(cat => `
-                <div class="card" onclick="selectCategory('${cat.name}')">
-                    <h3>${cat.name}</h3>
-                    <p>${cat.description}</p>
-                </div>
-            `).join('');
-        }
-
-        function selectCategory(categoryName) {
-            showSection('tools');
-            filterTools('', categoryName);
-        }
-
-        function renderTools(toolsList = tools) {
-            const grid = document.getElementById('tools-grid');
-            grid.innerHTML = toolsList.map(tool => `
-                <div class="card" onclick="showToolDetails('${tool.name}')">
-                    <h3>${tool.name}</h3>
-                    <p>${tool.description}</p>
-                    <span>${tool.category}</span>
-                </div>
-            `).join('');
-        }
-
-        function filterTools(query, category = '') {
-            let filtered = tools;
-            if (query) {
-                filtered = filtered.filter(tool => tool.name.toLowerCase().includes(query.toLowerCase()));
-            }
-            if (category) {
-                filtered = filtered.filter(tool => tool.category === category);
-            }
-            renderTools(filtered);
-        }
-
-        function openArticle(url) {
-            window.open(url, '_blank');
-        }
-
-        function renderArticles() {
-            let html = '';
-            currentTool.articles.forEach((article, idx) => {
-                html += `<div class="card article-card" data-article-idx="${idx}"><h3>${article.title}</h3><p>Click to read the full guide →</p></div>`;
-            });
-            return html;
-        }
-
-        function showToolDetails(toolName) {
-            currentTool = tools.find(t => t.name === toolName);
-            const content = document.getElementById('tool-details-content');
-            content.innerHTML = `
-                <h2>${currentTool.name}</h2>
-                <div class="meta">
-                    <span>Category: ${currentTool.category}</span>
-                    <span>Reviews: ${currentTool.reviews.length}</span>
-                </div>
-                <p class="description">${currentTool.description}</p>
-                <div class="tabs">
-                    <div class="tab active" onclick="switchTab('articles')">Articles</div>
-                    <div class="tab" onclick="switchTab('reviews')">Reviews</div>
-                </div>
-                <div id="articles" class="tab-content active">
-                    ${renderArticles()}
-                </div>
-                <div id="reviews" class="tab-content">
-                    <div class="review-form">
-                        <h4>Write a Review</h4>
-                        <input type="number" min="1" max="5" placeholder="Rating (1-5)" id="rating">
-                        <textarea placeholder="Your comment" id="comment"></textarea>
-                        <button class="btn-primary" onclick="submitReview()">Submit</button>
-                    </div>
-                    <div class="reviews-list">
-                        ${currentTool.reviews.map(review => `
-                            <div class="review">
-                                <div class="rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</div>
-                                <p>${review.comment}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-                <button class="btn-secondary" onclick="toggleFavorite('${currentTool.name}')">${favorites.includes(currentTool.name) ? 'Remove from Favorites' : 'Add to Favorites'}</button>
-            `;
-            showSection('tool-details');
-            
-            // Attach event listeners to article cards
-            document.querySelectorAll('.article-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const idx = this.getAttribute('data-article-idx');
-                    openArticle(currentTool.articles[idx].url);
-                });
-            });
-        }
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelector(`.tab[onclick="switchTab('${tabName}')"]`).classList.add('active');
-            document.getElementById(tabName).classList.add('active');
-        }
-
-        function submitReview() {
-            const rating = document.getElementById('rating').value;
-            const comment = document.getElementById('comment').value;
-            if (rating && comment) {
-                currentTool.reviews.push({ rating: parseInt(rating), comment });
-                showToolDetails(currentTool.name); // Refresh
-            }
-        }
-
-        function toggleFavorite(toolName) {
-            if (favorites.includes(toolName)) {
-                favorites = favorites.filter(f => f !== toolName);
-            } else {
-                favorites.push(toolName);
-            }
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            if (currentTool) showToolDetails(currentTool.name);
-        }
-
-        function renderFavorites() {
-            const grid = document.getElementById('favorites-grid');
-            const favTools = tools.filter(t => favorites.includes(t.name));
-            grid.innerHTML = favTools.length ? favTools.map(tool => `
-                <div class="card" onclick="showToolDetails('${tool.name}')">
-                    <h3>${tool.name}</h3>
-                    <p>${tool.description}</p>
-                </div>
-            `).join('') : '<p>No favorites yet.</p>';
-        }
-
-        function switchAuthTab(tab) {
-            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.auth-form').forEach(f => f.classList.add('hidden'));
-            document.querySelector(`.auth-tab[onclick="switchAuthTab('${tab}')"]`).classList.add('active');
-            document.getElementById(`${tab}-form`).classList.remove('hidden');
-        }
-
-        function login() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            if (!email || !password) {
-                alert('Please fill in all fields.');
-                return;
-            }
-
-            // Check if user exists
-            const user = registeredUsers.find(u => u.email === email);
-            if (!user) {
-                alert('Email not registered. Please sign up first.');
-                document.getElementById('login-email').value = '';
-                document.getElementById('login-password').value = '';
-                return;
-            }
-
-            // Verify password
-            if (user.password !== password) {
-                alert('Incorrect password.');
-                document.getElementById('login-password').value = '';
-                return;
-            }
-
-            // Login successful
-            currentUser = { name: user.name, email: user.email };
-            localStorage.setItem('user', JSON.stringify(currentUser));
-            document.querySelector('.auth-section').classList.add('hidden');
-            document.querySelector('.hero .actions').style.display = 'flex';
-            alert('Logged in successfully!');
-            document.getElementById('login-email').value = '';
-            document.getElementById('login-password').value = '';
-        }
-
-        function isValidEmail(email) {
-            // Regular expression for valid email format
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
-        function signup() {
-            const name = document.getElementById('signup-name').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            if (!name || !email || !password) {
-                alert('Please fill in all fields.');
-                return;
-            }
-
-            // Validate email format
-            if (!isValidEmail(email)) {
-                alert('Please enter a valid email address (e.g., user@example.com).');
-                document.getElementById('signup-email').value = '';
-                return;
-            }
-
-            // Check if email already exists
-            const emailExists = registeredUsers.some(u => u.email === email);
-            if (emailExists) {
-                alert('This email is already registered. Please use a different email or log in.');
-                document.getElementById('signup-email').value = '';
-                return;
-            }
-
-            // Register new user
-            registeredUsers.push({ name, email, password });
-            localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
-
-            // Login the user
-            currentUser = { name, email };
-            localStorage.setItem('user', JSON.stringify(currentUser));
-            document.querySelector('.auth-section').classList.add('hidden');
-            document.querySelector('.hero .actions').style.display = 'flex';
-            alert('Account created and logged in successfully!');
-            document.getElementById('signup-name').value = '';
-            document.getElementById('signup-email').value = '';
-            document.getElementById('signup-password').value = '';
-        }
     </script>
 </body>
 </html>
+
